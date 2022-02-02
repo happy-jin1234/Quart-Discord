@@ -1,7 +1,7 @@
 from .base import DiscordModelsBase
 from quart import current_app
 
-import discord
+import disnake
 from .. import configs
 
 
@@ -47,7 +47,7 @@ class Guild(DiscordModelsBase):
     def __get_permissions(permissions_value):
         if permissions_value is None:
             return
-        return discord.Permissions(int(permissions_value))
+        return disnake.Permissions(int(permissions_value))
 
     def __str__(self):
         return self.name
