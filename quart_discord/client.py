@@ -1,7 +1,7 @@
 import jwt
 import typing
 import asyncio
-import discord
+import disnake
 
 from . import configs, _http, models, utils, exceptions
 
@@ -71,7 +71,7 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
 
     async def create_session(
             self, scope: list = None, *, data: dict = None, prompt: bool = True,
-            permissions: typing.Union[discord.Permissions, int] = 0, **params
+            permissions: typing.Union[disnake.Permissions, int] = 0, **params
     ):
         """Primary method used to create OAuth2 session and redirect users for
         authorization code grant.
@@ -118,9 +118,9 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
         params = params or dict()
         params["prompt"] = "consent" if prompt else "none"
         if "bot" in scope:
-            if not isinstance(permissions, (discord.Permissions, int)):
-                raise ValueError(f"Passed permissions must be an int or discord.Permissions, not {type(permissions)}.")
-            if isinstance(permissions, discord.Permissions):
+            if not isinstance(permissions, (disnake.Permissions, int)):
+                raise ValueError(f"Passed permissions must be an int or disnake.Permissions, not {type(permissions)}.")
+            if isinstance(permissions, disnake.Permissions):
                 permissions = permissions.value
             params["permissions"] = permissions
             try:
